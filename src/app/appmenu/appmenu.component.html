@@ -1,0 +1,37 @@
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="index3.html" class="brand-link">
+      <img src="assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity:.8">
+      <span class="brand-text font-weight-light">Transporter</span>
+    </a>
+  <div class="sidebar">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+		  <a class="d-block"> {{userFromApi.username}}</a>
+          <a class="d-block"> {{userFromApi.role_name}}</a>
+        </div>
+      </div>
+     <nav class="mt-2">
+       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+		  <ng-template #recursiveList let-sidebarMenu>
+			<li *ngFor="let item of sidebarMenu" class="nav-item">
+			 <a href="{{item.children.length > 0 ? '#': item.link}}" class="nav-link">
+              <i class="nav-icon {{item.icons}}"></i>
+              <p>
+               {{item.menu_name}}
+                <i class="{{item.children.length > 0 ? 'right fas fa-angle-left' : NULL}}"></i>
+              </p>
+             </a>
+			 <ul *ngIf="item.children.length > 0" class="nav nav-treeview">
+				<ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+			  </ul>
+			</li>
+		  </ng-template>
+		  <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: sidebarMenu }"></ng-container>
+	  </ul>
+	</nav>
+	</div>
+  </aside>

@@ -1,0 +1,21 @@
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown user user-menu">
+		<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+		  <span class="hidden-xs">Settings</span>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+		<li class="user-footer">
+			<div class="pull-left">
+			  <a href="#" class="btn btn-default btn-flat">Profile</a>
+			</div>
+			<div class="pull-right">
+			   <a class="nav-item nav-link" routerLink="/admin" *ngIf="isAdmin">Admin</a>
+                <a class="nav-item nav-link" (click)="logout()">Logout</a>
+			</div>
+		 </li>
+		</ul>
+      </li>
+    </ul>
+</nav>
+
