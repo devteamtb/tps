@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-
-  uri = 'http://localhost:4000/products';
 
   constructor(private http: HttpClient) { }
 
@@ -16,20 +15,24 @@ export class ProductsService {
       ProductDescription,
       ProductPrice
     };
-    this.http.post('http://localhost:4000/products/add', obj)
+    this.http.post(this.getHostURL() + 'products/add', obj)
         .subscribe(res => console.log('Done'));
   }
 
+  getHostURL(): string {
+	return environment.apiHost;
+  }
+  
   getProducts() {
     return this
            .http
-           .get('http://localhost:4000/products');
+           .get(this.getHostURL() + 'products');
   }
 
   editProduct(id) {
 	return this
             .http
-            .get('http://localhost:4000/products/edit/'+id);
+            .get(this.getHostURL() + 'products/edit/'+id);
   }
 
   updateProduct(ProductName, ProductDescription, ProductPrice, id) {
@@ -40,13 +43,13 @@ export class ProductsService {
     };
     this
       .http
-      .post('http://localhost:4000/products/update/'+id, obj)
+      .post(this.getHostURL() + 'products/update/'+id, obj)
       .subscribe(res => console.log('Update Complete'));
   }
 
   deleteProduct(id) {
     return this
               .http
-              .get('http://localhost:4000/products/delete/'+id);
+              .get(this.getHostURL() + 'products/delete/'+id);
   }
 }
