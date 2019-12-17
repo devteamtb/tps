@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import {environment} from '../environments/environment';
 import {User} from './User';
 
 @Injectable({ providedIn: 'root' })
@@ -19,8 +19,11 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
+	getHostURL(): string {
+	  return environment.apiHost;
+    }
     login(username: string, password: string) {
-        return this.http.post<any>('http://localhost:4000/users/authenticate', { username, password })
+        return this.http.post<any>(this.getHostURL()+'users/authenticate', { username, password })
             .pipe(map(user => {
 				if(user.status===true){
 					if (user && user.res.token) {
